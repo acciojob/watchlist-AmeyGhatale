@@ -1,8 +1,11 @@
 package com.driver;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.MissingPathVariableException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class ControllerLayer
@@ -11,61 +14,64 @@ public class ControllerLayer
     ServiceLayer serviceObj;
 
     @PostMapping("/movies/add-movie")
-    public String addMovie(@RequestBody Movie movie)
+    public ResponseEntity<String> addMovie(@RequestBody Movie movie)
     {
         serviceObj.addMovie(movie);
-        return "Movie has been added";
+        return new ResponseEntity<>("Movie has been added", HttpStatus.CREATED);
     }
 
     @PostMapping("/movies/add-director")
-    public String addDirector(@RequestBody Director director)
+    public ResponseEntity<String> addDirector(@RequestBody Director director)
     {
         serviceObj.addDirector(director);
-        return "Director has been added";
+        return new ResponseEntity<>("Director has been added", HttpStatus.CREATED);
     }
 
     @PutMapping("/movies/add-movie-director-pair")
-    public String updateMovie(@RequestBody Movie movie)
+    public ResponseEntity<String> updateMovie(@RequestParam("movieName") String movieName,
+                                              @RequestParam("dirName") String dirName)
     {
-        addMovie(movie);
-        return "Movie has been updated";
+        serviceObj.addMoviesInDirector(movieName, dirName);
+        return new ResponseEntity<>("Movie has been updated", HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/movies/get-movie-by-name/{movieName}")
-    public Movie getMovieByName(@PathVariable("movieName") String name)
+    public ResponseEntity<Movie> getMovieByName(@PathVariable("movieName") String name)
     {
-        return serviceObj.getMovie(name);
+        return new ResponseEntity<>(serviceObj.getMovie(name), HttpStatus.FOUND);
     }
 
     @GetMapping("/movies/get-director-by-name/{directorName}")
-    public Director getDirectorByName(@PathVariable("directorName") String name)
+    public ResponseEntity<Director> getDirectorByName(@PathVariable("directorName") String name)
     {
-        return serviceObj.getDirector(name);
+        return new ResponseEntity<>(serviceObj.getDirector(name), HttpStatus.FOUND);
     }
 
     @GetMapping("/movies/get-movies-by-director-name/{dirName}")
-    public String getMovieByDirector(@PathVariable("dirName") String  name)
+
+    public ResponseEntity<List<Movie>> getMovieByDirector(@PathVariable("dirName") String  name)
     {
-        return serviceObj.directorMovieList(name);
+        return new ResponseEntity<>(serviceObj.getDirectorMovieList(name), HttpStatus.FOUND);
     }
 
     @GetMapping("/movies/get-all-movies")
-    public StringBuilder getAllMovies()
+    public ResponseEntity<List<Movie>> getAllMovies()
     {
-        return serviceObj.getAllMovies();
+        return new ResponseEntity<>(serviceObj.getAllMovies(), HttpStatus.FOUND);
     }
 
-//    @DeleteMapping("/movies/delete-director-by-name")
-//    public void deleteDirector  MovieByName()
-//{
-//
-//}
+    @DeleteMapping("/movies/delete-director-by-name")
+    public ResponseEntity<String> deleteDirectorMovieByName(@RequestParam("directorName") String name)
+    {
+        serviceObj.removeDirectorMovieList(name);
+        return new ResponseEntity<>("All movies of "+name+" has been deleted", HttpStatus.GONE);
+    }
 
     @DeleteMapping("/movies/delete-all-directors")
-    public String deleteAllMovies()
+    public ResponseEntity<String> deleteAllMovies()
     {
         serviceObj.removeAllMovie();
-        return "All movies are gone";
+        return new ResponseEntity<>("All movies are gone", HttpStatus.GONE);
     }
 
 

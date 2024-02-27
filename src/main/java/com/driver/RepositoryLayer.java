@@ -2,15 +2,13 @@ package com.driver;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Repository
 public class RepositoryLayer {
     private Map<String, Movie> moviesDb = new HashMap<>();
     private Map<String, Director> directorDb = new HashMap<>();
+    private Map<String, List<Movie>> movieListOfDirectorDb = new HashMap<>();
 
     public void addMovie(Movie movie){
         String movieName = movie.getMovieName();
@@ -20,6 +18,7 @@ public class RepositoryLayer {
     public void addDirector(Director director){
         String directorName = director.getDirectorName();
         directorDb.put(directorName, director);
+        movieListOfDirectorDb.put(directorName, new ArrayList<>());
     }
 
     public Map<String, Director> getDirectorsDb(){
@@ -28,6 +27,13 @@ public class RepositoryLayer {
 
     public Map<String, Movie> getMoviesDb(){
         return moviesDb;
+    }
+    public List<Movie> getAllMovieList(){
+        return new ArrayList<>(moviesDb.values());
+    }
+
+    public Map<String, List<Movie>> getMoviesByDirectorDb(){
+        return movieListOfDirectorDb;
     }
 
 }

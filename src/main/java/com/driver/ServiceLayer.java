@@ -3,6 +3,7 @@ package com.driver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -34,35 +35,35 @@ public class ServiceLayer {
         return directorDb.get(name);
     }
 
-
-    public String directorMovieList(String directorName) {
-        Map<String, Movie> movieDb = repoObj.getMoviesDb();
-        String response = "";
-        for (Movie movie : movieDb.values()) {
-            String director = movie.getDirName();
-            if (director.equals(directorName))
-                response += movie.getMovieName() + "\n";
-        }
-        return response;
+    public void addMoviesInDirector(String movieName, String dirName){
+        Map<String, List<Movie>> dirMovieDb = repoObj.getMoviesByDirectorDb();
+        List<Movie> list = dirMovieDb.get(dirName);
+        Movie movie = getMovie(movieName);
+        list.add(movie);
+        dirMovieDb.put(dirName, list);
     }
 
-    public StringBuilder getAllMovies() {
-        Map<String, Movie> movieDb = repoObj.getMoviesDb();
-        StringBuilder response = new StringBuilder();
-        for (Movie movie : movieDb.values()) {
-            response.append(movie.getMovieName() + "\n");
-        }
-        return response;
+
+    public List<Movie> getDirectorMovieList(String directorName) {
+        Map<String, List<Movie>> dirDb = repoObj.getMoviesByDirectorDb();
+        return dirDb.get(directorName);
+    }
+
+    public List<Movie> getAllMovies() {
+        return repoObj.getAllMovieList();
     }
 
 
     public void removeDirectorMovieList(String directorName) {
-        Map<String, Movie> movieDb = repoObj.getMoviesDb();
-        for (Movie movie : movieDb.values()) {
-            String director = movie.getDirName();
-            if (director.equals(directorName))
-                movieDb.remove(movie.getMovieName());
+        Map<String, List<Movie>> directorListDb = repoObj.getMoviesByDirectorDb();
+        Map<String, Movie> moviesDb = repoObj.getMoviesDb();
+        List<Movie> list = directorListDb.get(directorName);
+
+        for(Movie movie : list){
+            moviesDb.remove(movie.getMovieName());
         }
+
+        directorListDb.remove(directorName);
     }
 
     public void removeAllMovie() {
