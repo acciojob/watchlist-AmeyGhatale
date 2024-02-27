@@ -11,12 +11,12 @@ public class RepositoryLayer {
     private Map<String, List<Movie>> movieListOfDirectorDb = new HashMap<>();
 
     public void addMovie(Movie movie){
-        String movieName = movie.getMovieName();
+        String movieName = movie.getName();
         moviesDb.put(movieName, movie);
     }
 
     public void addDirector(Director director){
-        String directorName = director.getDirectorName();
+        String directorName = director.getName();
         directorDb.put(directorName, director);
         movieListOfDirectorDb.put(directorName, new ArrayList<>());
     }

@@ -60,7 +60,7 @@ public class ServiceLayer {
         List<Movie> list = directorListDb.get(directorName);
 
         for(Movie movie : list){
-            moviesDb.remove(movie.getMovieName());
+            moviesDb.remove(movie.getName());
         }
 
         directorListDb.remove(directorName);
