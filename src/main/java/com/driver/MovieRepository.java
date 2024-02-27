@@ -8,7 +8,7 @@ import java.util.*;
 public class MovieRepository {
     private Map<String, Movie> moviesDb = new HashMap<>();
     private Map<String, Director> directorDb = new HashMap<>();
-    private Map<String, List<Movie>> movieListOfDirectorDb = new HashMap<>();
+    private Map<String, List<String>> movieListOfDirectorDb = new HashMap<>();
 
     public void addMovie(Movie movie){
         String movieName = movie.getName();
@@ -32,7 +32,7 @@ public class MovieRepository {
         return new ArrayList<>(moviesDb.values());
     }
 
-    public Map<String, List<Movie>> getMoviesByDirectorDb(){
+    public Map<String, List<String>> getMoviesByDirectorDb(){
         return movieListOfDirectorDb;
     }
 

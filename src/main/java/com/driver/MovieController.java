@@ -49,7 +49,7 @@ public class MovieController
 
     @GetMapping("/movies/get-movies-by-director-name/{dirName}")
 
-    public ResponseEntity<List<Movie>> getMoviesByDirectorName(@PathVariable("dirName") String  name)
+    public ResponseEntity<List<String>> getMoviesByDirectorName(@PathVariable("dirName") String  name)
     {
         return new ResponseEntity<>(serviceObj.getDirectorMovieList(name), HttpStatus.FOUND);
     }

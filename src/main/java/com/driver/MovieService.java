@@ -36,16 +36,15 @@ public class MovieService {
     }
 
     public void addMoviesInDirector(String movieName, String dirName){
-        Map<String, List<Movie>> dirMovieDb = repoObj.getMoviesByDirectorDb();
-        List<Movie> list = dirMovieDb.get(dirName);
-        Movie movie = getMovie(movieName);
-        list.add(movie);
+        Map<String, List<String>> dirMovieDb = repoObj.getMoviesByDirectorDb();
+        List<String> list = dirMovieDb.get(dirName);
+        list.add(movieName);
         dirMovieDb.put(dirName, list);
     }
 
 
-    public List<Movie> getDirectorMovieList(String directorName) {
-        Map<String, List<Movie>> dirDb = repoObj.getMoviesByDirectorDb();
+    public List<String> getDirectorMovieList(String directorName) {
+        Map<String, List<String>> dirDb = repoObj.getMoviesByDirectorDb();
         return dirDb.get(directorName);
     }
 
@@ -55,14 +54,13 @@ public class MovieService {
 
 
     public void removeDirectorMovieList(String directorName) {
-        Map<String, List<Movie>> directorListDb = repoObj.getMoviesByDirectorDb();
+        Map<String, List<String>> directorListDb = repoObj.getMoviesByDirectorDb();
         Map<String, Movie> moviesDb = repoObj.getMoviesDb();
-        List<Movie> list = directorListDb.get(directorName);
+        List<String> list = directorListDb.get(directorName);
 
-        for(Movie movie : list){
-            moviesDb.remove(movie.getName());
+        for(String movie : list){
+            moviesDb.remove(movie);
         }
-
         directorListDb.remove(directorName);
     }
 
