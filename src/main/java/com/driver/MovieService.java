@@ -48,7 +48,7 @@ public class MovieService {
         return dirDb.get(directorName);
     }
 
-    public List<Movie> getAllMovies() {
+    public List<String> getAllMovies() {
         return repoObj.getAllMovieList();
     }
 

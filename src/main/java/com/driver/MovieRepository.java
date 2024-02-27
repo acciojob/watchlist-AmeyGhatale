@@ -28,8 +28,11 @@ public class MovieRepository {
     public Map<String, Movie> getMoviesDb(){
         return moviesDb;
     }
-    public List<Movie> getAllMovieList(){
-        return new ArrayList<>(moviesDb.values());
+    public List<String> getAllMovieList(){
+        List<String> list = new ArrayList<>();
+        for(Movie movie : moviesDb.values())
+            list.add(movie.getName());
+        return list;
     }
 
     public Map<String, List<String>> getMoviesByDirectorDb(){
