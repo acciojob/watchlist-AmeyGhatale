@@ -61,17 +61,17 @@ public class MovieController
     }
 
     @DeleteMapping("/movies/delete-director-by-name")
-    public ResponseEntity<String> deleteDirectorByName(@RequestParam("directorName") String name)
+    public void deleteDirectorByName(@RequestParam("directorName") String name)
     {
         serviceObj.removeDirectorMovieList(name);
-        return new ResponseEntity<>("All movies of "+name+" has been deleted", HttpStatus.GONE);
+//        return new ResponseEntity<>("All movies of "+name+" has been deleted", HttpStatus.GONE);
     }
 
     @DeleteMapping("/movies/delete-all-directors")
-    public ResponseEntity<String> deleteAllDirectors()
+    public void deleteAllDirectors()
     {
         serviceObj.removeAllMovie();
-        return new ResponseEntity<>("All movies are gone", HttpStatus.GONE);
+//        return new ResponseEntity<>("All movies are gone", HttpStatus.GONE);
     }
 
 
