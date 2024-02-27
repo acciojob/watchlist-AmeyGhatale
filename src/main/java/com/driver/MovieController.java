@@ -14,25 +14,25 @@ public class MovieController
     MovieService serviceObj;
 
     @PostMapping("/movies/add-movie")
-    public ResponseEntity<String> addMovie(@RequestBody Movie movie)
+    public void addMovie(@RequestBody Movie movie)
     {
         serviceObj.addMovie(movie);
-        return new ResponseEntity<>("Movie has been added", HttpStatus.CREATED);
+//        return new ResponseEntity<>("Movie has been added", HttpStatus.CREATED);
     }
 
     @PostMapping("/movies/add-director")
-    public ResponseEntity<String> addDirector(@RequestBody Director director)
+    public void addDirector(@RequestBody Director director)
     {
         serviceObj.addDirector(director);
-        return new ResponseEntity<>("Director has been added", HttpStatus.CREATED);
+//        return new ResponseEntity<>("Director has been added", HttpStatus.CREATED);
     }
 
     @PutMapping("/movies/add-movie-director-pair")
-    public ResponseEntity<String> addMovieDirectorPair(@RequestParam("movieName") String movieName,
+    public void addMovieDirectorPair(@RequestParam("movieName") String movieName,
                                               @RequestParam("dirName") String dirName)
     {
         serviceObj.addMoviesInDirector(movieName, dirName);
-        return new ResponseEntity<>("Movie has been updated", HttpStatus.ACCEPTED);
+//        return new ResponseEntity<>("Movie has been updated", HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/movies/get-movie-by-name/{movieName}")
