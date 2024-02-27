@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class ServiceLayer {
+public class MovieService {
 
     @Autowired
-    RepositoryLayer repoObj;
+    MovieRepository repoObj;
 //    Map<String, Director> directorDb = repoObj.getDirectorsDb();
 
     public void addMovie(Movie movie) {

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 
 @Repository
-public class RepositoryLayer {
+public class MovieRepository {
     private Map<String, Movie> moviesDb = new HashMap<>();
     private Map<String, Director> directorDb = new HashMap<>();
     private Map<String, List<Movie>> movieListOfDirectorDb = new HashMap<>();
