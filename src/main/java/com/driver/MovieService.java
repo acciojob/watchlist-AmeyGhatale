@@ -64,8 +64,14 @@ public class MovieService {
         directorListDb.remove(directorName);
     }
 
-    public void removeAllMovie() {
+    public void removeAllDirector() {
         Map<String, Movie> movieDb = repoObj.getMoviesDb();
-        movieDb.clear();
+        Map<String, List<String>> directorMovieDb = repoObj.getMoviesByDirectorDb();
+
+        for(List<String> list : directorMovieDb.values()){
+            for(String movieName : list)
+                movieDb.remove(movieName);
+        }
+        directorMovieDb.clear();
     }
 }

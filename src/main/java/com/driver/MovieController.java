@@ -70,7 +70,7 @@ public class MovieController
     @DeleteMapping("/movies/delete-all-directors")
     public void deleteAllDirectors()
     {
-        serviceObj.removeAllMovie();
+        serviceObj.removeAllDirector();
 //        return new ResponseEntity<>("All movies are gone", HttpStatus.GONE);
     }
 
